@@ -1,0 +1,25 @@
+{
+  "name": "node-server-example",
+  "version": "1.0.0",
+  "description": "node server example",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samantha-t28/node-server-example.git"
+  },
+  "keywords": [
+    "node",
+    "server"
+  ],
+  "author": "samantha-t28",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/samantha-t28/node-server-example/issues"
+  },
+  "homepage": "https://github.com/samantha-t28/node-server-example#readme"
+}
