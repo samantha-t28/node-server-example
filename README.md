@@ -29,9 +29,9 @@ server.listen(3000, '192.168.6.59', () => {
 * The createServer function from the http module creates an HTTP server and returns it as an object.
 * The function takes in two parameters (request, response).
 * Inside the object, it handles the server behavior, such as:
-  **Request**: When server receives incoming request, you can use this to handle client side.
-  **Listening**: When server starts listening to the connection `server.listen(port, hostname)`
-  **Close**: `res.end()` method closes the server.
+  > **Request**: When server receives incoming request, you can use this to handle client side.
+  > **Listening**: When server starts listening to the connection `server.listen(port, hostname)`
+  > **Close**: `res.end()` method closes the server.
 
 ## What is Non-Blocking and Event-Driven?
 
