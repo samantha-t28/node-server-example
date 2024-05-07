@@ -77,6 +77,7 @@ Cross-Origin Resource Sharing (CORS) helps maintain the security of web applicat
 When I was setting up the server, CORS error appeared in my browser. I am using VS Code, and the front-end application is running on port 5507, while my Node.js server is running on port 3000. This setup means I need to allow cross-origin requests from the front-end running on port 5507 to the server running on port 3000.
 
 To solve this, there are several ways:
+
 **1**. Use the `cors` middleware with Express
 **2**. Manual set up
 
@@ -99,3 +100,38 @@ const server = createServer((req, res) => {
 
 ```
 While I was reading about Access-Control-Allow-Origin, I came across a solution where I could use * as a wildcard to allow any origin to access the server. The CORS error message went away; however, this approach is generally discouraged because it permits unrestricted access. It's better to specify the allowed origins to limit access to trusted sources.
+
+
+## Troubleshooting Server Issues
+
+While handling a CORS error in my browser, I encountered another error message in my terminal:
+
+```text
+Error: listen EADDRINUSE: address already in use 192.168.6.59:3000
+    at Server.setupListenHandle [as _listen2] (node:net:1485:16)
+    at listenInCluster (node:net:1533:12)
+    at doListen (node:net:1682:7)
+    at process.processTicksAndRejections (node:internal/process/task_queues:83:21)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1512:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '192.168.6.59',
+  port: 3000
+}
+```
+`Error: listen EADDRINUSE: address already in use`: EADDRINUSE means that another application is already using the specified port. This happens when an old server is still running. Even if the CORS issue is fixed, duplicate servers can prevent the application from working properly.
+
+To check if any application is using port 3000, use the following command:
+
+```text
+lsof -i -P -n | grep LISTEN | grep 3000
+```
+* This command lists the ID of the program using the port. To terminate the process, use:
+
+```text
+kill <ID>
+```
+* Replace <ID> with the process ID you found using the previous command. This will allow you to restart your server properly.
