@@ -135,3 +135,6 @@ lsof -i -P -n | grep LISTEN | grep 3000
 kill <ID>
 ```
 * Replace <ID> with the process ID you found using the previous command. This will allow you to restart your server properly.
+
+## HTTP GET and POST Methods
+
