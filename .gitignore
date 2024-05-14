@@ -1,2 +1,12 @@
 # Ignore VS Code
 .vscode/
+client/.vscode
+
+# Node modules
+node_modules/
+
+# Jest coverage directory
+coverage/
+
+# Jest cache
+jest-cache/

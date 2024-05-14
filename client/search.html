@@ -7,12 +7,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<script type="module" src="client.js"></script>
+<script type="module" src="searchClient.js"></script>
 <body>
     <div class="container">
-        <h1>Random Quote Generator</h1>
-        <button id="button">Generate Quote</button>
-        <div id="server-response"></div>
+        <h1>Quote Search</h1>
+        <input type="search" id="search" placeholder="Search by author"/>
+        <button id="button">Search Quote</button>
+        <div id="quote"></div>
+        <div id="author"></div>
+        <div id="profession"></div>
     </div>
 </body>
 </html>
