@@ -4,11 +4,11 @@ Documentation:
 * https://nodejs.org/en/learn/getting-started/introduction-to-nodejs
 * https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
 
-## What I've learned:
+# What I've learned:
 
 Node.js is primarily known for server-side applications, allowing developers to use JavaScript on the server side, which is beneficial for those who are already familiar with the language from front-end development. Additionally, its non-blocking and event-driven structure is a key feature of Node.js, making it efficient for handling multiple requests and tasks.
 
-## How Do Server-Side Applications Work with Node.js?
+# How Do Server-Side Applications Work with Node.js?
 
 The `http` module is a built-in library in Node.js that provides functionality for creating and managing HTTP servers and making HTTP requests. Since it's built-in, you can use it without any additional installation.
 
@@ -36,7 +36,7 @@ server.listen(3000, '192.168.6.59', () => {
   > 
   > **Close**: `res.end()` method closes the server.
 
-## What is Non-Blocking and Event-Driven?
+# What is Non-Blocking and Event-Driven?
 
 Non-blocking means that the code does not block the execution of other tasks while waiting for the server to respond.
 
@@ -66,11 +66,11 @@ async function displayServer(){
 ```
 * The setTimeout() function schedules an event to trigger after 5 seconds. This shows event-driven programming, where the function runs after the specified time. 
 
-## Important Things to Consider When Setting Up Your Front-End Application to Your Server
+# Important Things to Consider When Setting Up Your Front-End Application to Your Server
 
 Setting up Cross-Origin Resource Sharing (CORS) is important when creating Node.js server, especially if the server is intended to be accessed from web applications running on different domain or port.
 
-## Why is CORS Important?
+# Why is CORS Important?
 
 Cross-Origin Resource Sharing (CORS) helps maintain the security of web applications by controlling how resources can be shared across different origins. It ensures that a web page can only access resources from another domain if explicitly allowed, which helps prevent malicious interactions between unrelated websites.
 
@@ -79,6 +79,7 @@ When I was setting up the server, CORS error appeared in my browser. I am using 
 To solve this, there are several ways:
 
 **1**. Use the `cors` middleware with Express
+
 **2**. Manual set up
 
 In this example, I will manually set up the server to specify the allowed origin and headers:
@@ -102,7 +103,7 @@ const server = createServer((req, res) => {
 While I was reading about Access-Control-Allow-Origin, I came across a solution where I could use * as a wildcard to allow any origin to access the server. The CORS error message went away; however, this approach is generally discouraged because it permits unrestricted access. It's better to specify the allowed origins to limit access to trusted sources.
 
 
-## Troubleshooting Server Issues
+# Troubleshooting Server Issues
 
 While handling a CORS error in my browser, I encountered another error message in my terminal:
 
@@ -138,14 +139,16 @@ kill <ID>
 
 # HTTP GET and POST Methods
 
-## GET Method
+## `GET Method`
 
 The GET method is used to request data from a server. It's like asking a server, "Can you give me this specific information?”
 
 ### Summary of GET Request Handling
 
 **1. Client requests data:** "Hey server, give me some data" (GET request).
+
 **2. Server picks a random item:** "Let me pick a random quote from my list."
+
 **3. Server sends the data:** "Here's your random quote" (sends the quote back to the client).
 
 ```javascript
@@ -166,15 +169,18 @@ server.listen(SERVER_PORT, () => {
 
 ```
 
-## Post Method
+## `Post Method`
 
 The POST method is used to send data to the server for processing. The server collects the data, processes it, and sends back a response based on the result.
 
 ## Summary of POST Request Handling
 
 **1. Client sends data:** "Hey server, here's some data about an author. Can you find quotes by this author?" (POST request with JSON body).
+
 **2. Server receives data:** "Let me collect and parse this data." (Server collects data chunks, parses the JSON).
+
 **3. Server processes data:** "Let me search my list of quotes for this author." (Server calls the searchQuotes function).
+
 **4. Server sends response:** "Here's what I found" (or "No quotes found" if none were found) (Server sends the response back to the client).
 
 ### Client Sends Data
