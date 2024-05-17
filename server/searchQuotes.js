@@ -1,7 +1,10 @@
-import quotes from './quotes.json' assert {type:'json'}
-import { getRandomInt } from './utils.js';
+// import quotes from './quotes.json' assert {type:'json'}
+// import { getRandomInt } from './utils.js';
 
-export const searchQuotes = (jsonData) => {
+
+
+export const searchQuotes = (jsonData, quotes) => {
+      
      // Parsing the string 'body' into a JSON object
     //  const jsonData = JSON.parse(body)
      // Filter quotes by author name (case-insensitive)
@@ -9,14 +12,13 @@ export const searchQuotes = (jsonData) => {
      // Check to see if there are any quotes in the filteredQuotes array
      if(filteredQuotes.length > 0){
        // Get random quotes from filteredQuotes
-       const randomIndex = getRandomInt(0, filteredQuotes.length);
+      //  const randomIndex = getRandomInt(0, filteredQuotes.length);
        // Picks a random quote from the list of filtered quotes.
-       const selectedQuote = filteredQuotes[randomIndex];
+       const selectedQuote = filteredQuotes[0];
        // Send success response
     //    res.writeHead(200, { 'Content-Type': 'application/json' });
        //  Send the response back to the client
     //    res.end(JSON.stringify(selectedQuote));
-       console.log(filteredQuotes)
         return selectedQuote;
        // Handle no matching author and display message
       } else {

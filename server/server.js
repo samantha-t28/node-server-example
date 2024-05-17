@@ -1,6 +1,6 @@
 // Import the createServer function from the built-in http module in Node.js
 import { createServer } from 'node:http';
-import quotes from './quotes.json' assert {type:'json'}
+import { getQuotes } from './getQuotes.js';
 import { getRandomInt } from './utils.js';
 import { log } from 'node:console';
 import { SERVER_PORT } from '../common/constants.js';
@@ -27,28 +27,27 @@ const server = createServer((req, res) => {
           body += chunk.toString();
           // handling the completion of data transmission
           req.on('end', () => {
-            
             try {
               const jsonData = JSON.parse(body)
-              const search = searchQuotes(jsonData);
-
+              // Retrieve the quotes data by invoking the getQuotes function
+              const quotes = getQuotes();
+              // Search the quotes using the searchQuotes function
+              const search = searchQuotes(jsonData, quotes);
+              // Set the status based on whether a quote was found
               const status = search.message?404:200;
+
               res.writeHead(status, { 'Content-Type': 'application/json' });
               res.end(JSON.stringify(search));
             } catch (err) {
               res.writeHead(400, {'Content-Type': 'application/json'});
               res.end(JSON.stringify({ message: 'Invalid JSON received', error:err.toString() }));
-              
-          }
+            }
           })
         })
       } 
     
-
-    if(req.method === 'GET')
-    {
-    // console.log(req.url)
-      
+    if(req.method === 'GET') {
+    const quotes = getQuotes();
     const randomQuoteIndex = getRandomInt(0,quotes.length);
 
     console.log(randomQuoteIndex);

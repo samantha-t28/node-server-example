@@ -136,5 +136,111 @@ kill <ID>
 ```
 * Replace <ID> with the process ID you found using the previous command. This will allow you to restart your server properly.
 
-## HTTP GET and POST Methods
+# HTTP GET and POST Methods
 
+## GET Method
+
+The GET method is used to request data from a server. It's like asking a server, "Can you give me this specific information?”
+
+### Summary of GET Request Handling
+
+**1. Client requests data:** "Hey server, give me some data" (GET request).
+**2. Server picks a random item:** "Let me pick a random quote from my list."
+**3. Server sends the data:** "Here's your random quote" (sends the quote back to the client).
+
+```javascript
+const server = createServer((req, res) => {
+  if(req.method === 'GET') {
+    // Pick a random quote from the list
+    const randomQuoteIndex = getRandomInt(0, quotes.length);
+    const randomQuote = quotes[randomQuoteIndex];
+
+    // Send the random quote back to the client
+    res.end(JSON.stringify(randomQuote));
+  }
+});
+
+server.listen(SERVER_PORT, () => {
+  console.log(`Listening on ${ADDRESS}:${SERVER_PORT}`);
+});
+
+```
+
+## Post Method
+
+The POST method is used to send data to the server for processing. The server collects the data, processes it, and sends back a response based on the result.
+
+## Summary of POST Request Handling
+
+**1. Client sends data:** "Hey server, here's some data about an author. Can you find quotes by this author?" (POST request with JSON body).
+**2. Server receives data:** "Let me collect and parse this data." (Server collects data chunks, parses the JSON).
+**3. Server processes data:** "Let me search my list of quotes for this author." (Server calls the searchQuotes function).
+**4. Server sends response:** "Here's what I found" (or "No quotes found" if none were found) (Server sends the response back to the client).
+
+### Client Sends Data
+
+**searchClient.js**
+```javascript
+async function getServer(author) {
+  try {
+    const response = await fetch(SERVER_ENDPOINT, {  
+      method: 'POST',
+      body: JSON.stringify({ author }),  
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const jsonResponse = await response.json();
+    return jsonResponse;
+  } catch (error) {
+    return `An error happened when attempting to fetch ${SERVER_ENDPOINT}. Error message: ${error}`;
+  }
+}
+```
+* The client sends a POST request to the server with the author’s name included in the request body as JSON.
+
+### Server Receives Request:
+
+**server.js**
+```javascript
+if(req.method === 'POST' && req.url === '/') {
+```
+* The server listens for incoming requests and checks if the request method is POST and if the URL is /, ensuring that the server processes only requests targeting the root endpoint.
+
+### Collecting Data Collection:
+
+```javascript
+let body = '';
+```
+*  By assigning an empty string to the body variable, it acts as a container to accumulate the data chunks received from the client.
+
+### Receiving Data:
+
+```javascript
+req.on('data', chunk => {
+  body += chunk.toString();
+});
+```
+* Convert each chunk of data into a string and append it to the body variable.
+
+### Receiving and Processing JSON Data:
+
+```javascript
+req.on('end', () => {
+	try {
+  const jsonData = JSON.parse(body);
+  // Process the jsonData
+  }
+});
+```
+* When all the data has been received, the body contains the complete data sent by the client as a single string. The server can now process the accumulated data, such as parsing it as JSON.
+
+### Error Handling:
+
+```javascript
+catch (err) {
+  res.writeHead(400, { 'Content-Type': 'application/json' });
+  res.end(JSON.stringify({ message: 'Invalid JSON received', error: err.toString() }));
+}
+```
+* If there is an error during the JSON parsing (e.g., if the client sends invalid JSON), the server catches the error and responds with a status code of 400 and an error message.
