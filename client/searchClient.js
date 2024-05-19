@@ -1,7 +1,8 @@
 import { SERVER_ENDPOINT } from "./constants.js";
 
 const button = document.getElementById('button');
-const searchInput = document.getElementById('search');
+const searchAuthor = document.getElementById('searchAuthor');
+const searchTopic = document.getElementById('searchTopic');
 
 button.disabled = true;
 
@@ -9,37 +10,36 @@ button.addEventListener('click', displayServer)
 
 // Disable button if input field is empty, enable otherwise
 const checkInput = () => {
-    button.disabled = searchInput.value.trim() === '' ? true : false;
+    button.disabled = searchAuthor.value.trim() === '' && searchTopic.value.trim() === '' ? true : false;
 }
 
-searchInput.addEventListener('input', checkInput)
+searchAuthor.addEventListener('input', checkInput)
+searchTopic.addEventListener('input', checkInput)
 
 async function displayServer(){
     
     const quote = document.getElementById('quote');
     const author = document.getElementById('author');
     const profession = document.getElementById('profession');
-    const serverQuote = await getServer(searchInput.value);
+    const topic = document.getElementById('topic');
+    const serverQuote = await getServer(searchAuthor.value, searchTopic.value);
 // Display error message if author is not found, otherwise display the quote and author
 if (serverQuote.message) {
         quote.innerText = "The author you're trying to search does not exist";
         author.innerText = '';
+        topic.innerText = '';
       } else {
         quote.innerText = serverQuote.quote;
         author.innerText = serverQuote.author;
+        // topic.innerText = serverQuote.topics;
       }
     }
 
-    // quote.innerText = serverQuote.quote;
-    // author.innerText = serverQuote.author;
-    // profession.innerText = serverQuote.profession;
-
-
-async function getServer(author) {
+async function getServer(author, topic) {
     
     try {
         const response = await fetch(SERVER_ENDPOINT, {  method: 'POST',
-        body: JSON.stringify({author})});      
+        body: JSON.stringify({author, topic})});      
         const textResponse = await response.json();
         console.log(textResponse)
         return textResponse;

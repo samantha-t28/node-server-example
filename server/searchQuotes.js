@@ -1,29 +1,25 @@
-// import quotes from './quotes.json' assert {type:'json'}
-// import { getRandomInt } from './utils.js';
-
-
-
 export const searchQuotes = (jsonData, quotes) => {
-      
-     // Parsing the string 'body' into a JSON object
-    //  const jsonData = JSON.parse(body)
-     // Filter quotes by author name (case-insensitive)
-     const filteredQuotes = quotes.filter(q => q.author.toLowerCase().includes(jsonData.author.toLowerCase()));
-     // Check to see if there are any quotes in the filteredQuotes array
-     if(filteredQuotes.length > 0){
-       // Get random quotes from filteredQuotes
-      //  const randomIndex = getRandomInt(0, filteredQuotes.length);
-       // Picks a random quote from the list of filtered quotes.
-       const selectedQuote = filteredQuotes[0];
-       // Send success response
-    //    res.writeHead(200, { 'Content-Type': 'application/json' });
-       //  Send the response back to the client
-    //    res.end(JSON.stringify(selectedQuote));
-        return selectedQuote;
-       // Handle no matching author and display message
+   let filteredQuotes = quotes;
+
+   // Filter quotes by author name (case-sensitive)
+   if(jsonData.author){
+      filteredQuotes = filteredQuotes.filter(q => q.author.toLowerCase().includes(jsonData.author.toLowerCase()));
+   }
+
+   // Filter quotes by topic (case-sensitive)
+   // The topics property is an array within each quote object. The some() method helps to determine if any of the topics in the array meet the specific condition provided.
+   if(jsonData.topic){
+      filteredQuotes = filteredQuotes.filter(q => q.topics.some(topic => topic.toLowerCase().includes(jsonData.topic.toLowerCase())));
+   }
+   
+   // Check to see if there are any quotes in the filteredQuotes array
+   if(filteredQuotes.length > 0){
+
+      const selectedQuote = filteredQuotes[0];
+      return selectedQuote;
+      // Handle no matching author and display message
       } else {
-    //    res.writeHead(404, { 'Content-Type': 'application/json' });
-    //    res.end(JSON.stringify({ message: 'No quotes found for the specified author.' }));
-        return {message: 'No quotes found for the specified author.'};
-       }
+
+      return {message: 'No quotes found for the specified author.'};
+   }
 }
