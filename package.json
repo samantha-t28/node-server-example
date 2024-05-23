@@ -4,8 +4,9 @@
   "description": "node server example",
   "main": "server.js",
   "scripts": {
-    "test": "jest",
-    "start": "node server/server.js"
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "start": "node server/server.js",
+    "dev": "nodemon server/server.js"
   },
   "type": "module",
   "repository": {
@@ -26,6 +27,7 @@
     "@babel/core": "^7.24.5",
     "@babel/preset-env": "^7.24.5",
     "babel-jest": "^29.7.0",
-    "jest": "^29.7.0"
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.0"
   }
 }
