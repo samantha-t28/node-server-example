@@ -41,9 +41,19 @@ h1 {
     box-shadow: 6px 7px 12px -2px #0f1011, inset -7px -8px 12px -3px #090f12, inset 9px 8px 4px -2px #21323c;
 }
 
-.container input:last-of-type {
-    margin-top: 0.3rem;
+.container input:first-of-type {
+    margin-top: 1rem;
 }
+
+.container input:last-of-type {
+    margin-top: 0.5rem;
+}
+
+input {
+    width: 35%;
+    padding: 0.2rem;
+}
+
 
 button {
     margin: 2.3rem 0 2rem 0;

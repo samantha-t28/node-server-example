@@ -24,7 +24,7 @@ describe('searchQuotes', () => {
     expect(searchQuotes({ author: 'Thomas'},testQuotes)).toEqual(testQuotes[1]);
   });
 
-  test('quote in case insensitive form: to test that, you can search using STEVE JOBS or steve jobs', () => {
+  test('the author search should be case insensitive', () => {
     expect(searchQuotes({ author: 'STEVE JOBS'},testQuotes)).toEqual(testQuotes[2]);
   });
 

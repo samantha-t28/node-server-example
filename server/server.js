@@ -7,6 +7,21 @@ import { SERVER_PORT } from '../common/constants.js';
 import { searchQuotes } from './searchQuotes.js';
 import { ADDRESS } from '../common/constants.js';
 import { CLIENT_PORT } from '../common/constants.js';
+import { readFile } from "node:fs";
+import { pathToFileURL } from "node:url";
+
+function serveStaticFile(res, path, contentType, responseCode = 200) {
+  readFile(path, (err, data) => {
+    if (err) {
+      res.writeHead(500, { "Content-Type": "text/plain" });
+      console.error(err);
+      res.end("500 - Internal Error");
+    } else {
+      res.writeHead(responseCode, { "Content-Type": contentType });
+      res.end(data);
+    }
+  });
+}
 
 const server = createServer((req, res) => {
   // header documentation: https://developer.mozilla.org/en-US/docs/Web/ HTTP/Headers
@@ -46,13 +61,37 @@ const server = createServer((req, res) => {
         })
       } 
     
-    if(req.method === 'GET') {
+    if(req.method === 'GET' && req.url === '/random') {
     const quotes = getQuotes();
     const randomQuoteIndex = getRandomInt(0,quotes.length);
 
     console.log(randomQuoteIndex);
+    res.writeHead(200, { 'Content-Type': 'application/json' });
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
     res.end(JSON.stringify(quotes[randomQuoteIndex])); // This line closes the response
+    
+    } 
+
+    // if (req.method === 'GET' && req.url === '/') {
+    //   res.writeHead(200, { 'Content-Type': 'text/html' });
+    //   res.end('<html><body><h1>Hello</h1></body></html>');
+    // }
+
+    if (req.method === 'GET' && req.url === '/') {
+      // console.log("Relative Path", "./client/index.html");
+      // console.log("Absolute Path", pathToFileURL("./client/index.html"));
+      serveStaticFile(res, pathToFileURL("./client/index.html"), "text/html");
+    } else if (req.method === 'GET' && req.url === '/client.js') {
+      serveStaticFile(res, pathToFileURL("./client/client.js"), "application/javascript");
+    } else if (req.method === 'GET' && req.url === '/constants.js') {
+      serveStaticFile(res, pathToFileURL("./client/constants.js"), "application/javascript");
+    } else if (req.method === 'GET' && req.url === '/style.css') {
+      serveStaticFile(res, pathToFileURL("./client/style.css"), "text/css");
+    } else if (req.method === 'GET' && req.url === '/common/constants.js') {
+      serveStaticFile(res, pathToFileURL("./common/constants.js"), "application/javascript");
+    } else {
+      res.writeHead(404, {'Content-Type': 'text/plain'});
+      res.end('Not Found');
     }
 });
 
