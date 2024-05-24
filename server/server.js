@@ -30,54 +30,43 @@ const server = createServer((req, res) => {
   // res.writeHead(200, { 'Content-Type': 'application/json' });
   // curious fact: we can add any kind of information on header
   res.setHeader('SAM', 'true');
-    // res.writeHead(200, { 'Content-Type': 'text/plain' });
 
-    // Handle POST requests to the searchClient.js endpoint
-    if(req.method === 'POST' && req.url === '/'){
-      
-        let body = '';
-  
-        req.on('data', chunk => {
-          // convert the chunk of data received from the client into string format
-          body += chunk.toString();
-          // handling the completion of data transmission
-          req.on('end', () => {
-            try {
-              const jsonData = JSON.parse(body)
-              // Retrieve the quotes data by invoking the getQuotes function
-              const quotes = getQuotes();
-              // Search the quotes using the searchQuotes function
-              const search = searchQuotes(jsonData, quotes);
-              // Set the status based on whether a quote was found
-              const status = search.message?404:200;
-
-              res.writeHead(status, { 'Content-Type': 'application/json' });
-              res.end(JSON.stringify(search));
-            } catch (err) {
-              res.writeHead(400, {'Content-Type': 'application/json'});
-              res.end(JSON.stringify({ message: 'Invalid JSON received', error:err.toString() }));
-            }
-          })
-        })
-      } 
-    
-    if(req.method === 'GET' && req.url === '/random') {
+  // res.writeHead(200, { 'Content-Type': 'text/plain' });
+  if(req.method === 'GET' && req.url === '/random') {
     const quotes = getQuotes();
     const randomQuoteIndex = getRandomInt(0,quotes.length);
 
     console.log(randomQuoteIndex);
     res.writeHead(200, { 'Content-Type': 'application/json' });
-    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
     res.end(JSON.stringify(quotes[randomQuoteIndex])); // This line closes the response
-    
-    } 
+    // Added /search endpoint to target searchClient.js
+  } else if(req.method === 'POST' && req.url === '/search') { // Handle POST requests to the searchClient.js endpoint
 
-    // if (req.method === 'GET' && req.url === '/') {
-    //   res.writeHead(200, { 'Content-Type': 'text/html' });
-    //   res.end('<html><body><h1>Hello</h1></body></html>');
-    // }
+    let body = '';
+  
+    req.on('data', chunk => {
+      // convert the chunk of data received from the client into string format
+      body += chunk.toString();
+      // handling the completion of data transmission
+      req.on('end', () => {          
+        try {
+          const jsonData = JSON.parse(body)
+          // Retrieve the quotes data by invoking the getQuotes function
+          const quotes = getQuotes();
+          // Search the quotes using the searchQuotes function
+          const search = searchQuotes(jsonData, quotes);
+          // Set the status based on whether a quote was found
+          const status = search.message?404:200;
 
-    if (req.method === 'GET' && req.url === '/') {
+          res.writeHead(status, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify(search));
+        } catch (err) {
+            res.writeHead(400, {'Content-Type': 'application/json'});
+            res.end(JSON.stringify({ message: 'Invalid JSON received', error:err.toString() }));
+          }
+        })
+      })
+    }  else if (req.method === 'GET' && req.url === '/' || req.method === 'GET' && req.url === '/index.html') {
       // console.log("Relative Path", "./client/index.html");
       // console.log("Absolute Path", pathToFileURL("./client/index.html"));
       serveStaticFile(res, pathToFileURL("./client/index.html"), "text/html");
@@ -89,7 +78,12 @@ const server = createServer((req, res) => {
       serveStaticFile(res, pathToFileURL("./client/style.css"), "text/css");
     } else if (req.method === 'GET' && req.url === '/common/constants.js') {
       serveStaticFile(res, pathToFileURL("./common/constants.js"), "application/javascript");
-    } else {
+      // Added the following else if section to add search page.
+    } else if (req.method === 'GET' && req.url === '/search.html') {
+      serveStaticFile(res, pathToFileURL("./client/search.html"), "text/html");
+    } else if (req.method === 'GET' && req.url === '/searchClient.js') {
+      serveStaticFile(res, pathToFileURL("./client/searchClient.js"), "application/javascript");
+    }  else {
       res.writeHead(404, {'Content-Type': 'text/plain'});
       res.end('Not Found');
     }
