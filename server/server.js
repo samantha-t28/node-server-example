@@ -78,7 +78,6 @@ const server = createServer((req, res) => {
       serveStaticFile(res, pathToFileURL("./client/style.css"), "text/css");
     } else if (req.method === 'GET' && req.url === '/common/constants.js') {
       serveStaticFile(res, pathToFileURL("./common/constants.js"), "application/javascript");
-      // Added the following else if section to add search page.
     } else if (req.method === 'GET' && req.url === '/search.html') {
       serveStaticFile(res, pathToFileURL("./client/search.html"), "text/html");
     } else if (req.method === 'GET' && req.url === '/searchClient.js') {

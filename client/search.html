@@ -11,13 +11,25 @@
 <body>
     <div class="container">
         <h1>Quote Search</h1>
-        <input type="search" id="searchAuthor" placeholder="Search by author"/>
-        <input type="search" id="searchTopic" placeholder="Search by topic"/>
-        <button id="button">Search Quote</button>
-        <div id="quote"></div>
-        <div id="author"></div>
-        <div id="topic"></div>
-        <div id="profession"></div>
+        <div class="form-container">
+            <form id="searchForm">
+                <div class="form-group">
+                    <label for="searchAuthor">Author:</label>
+                    <input type="search" id="searchAuthor" placeholder="e.g. Mark Twain"/>
+                </div>
+                <div class="form-group">
+                    <label for="searchTopic">Topic:</label>
+                    <input type="search" id="searchTopic" placeholder="e.g. Humor"/>
+                </div>
+            </form>
+            <button type="submit" id="button">Search</button>
+        </div>
+        <div class="displayInfo">
+            <div class="quote" id="quote"></div>
+            <div class="author" id="author"></div>
+            <div class="topic" id="topic"></div>
+            <div class="profession" id="profession"></div>
+        </div>
         <a href="index.html">Generate Random Quote</a>
     </div>
 </body>
