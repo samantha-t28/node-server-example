@@ -38,7 +38,11 @@ if (serverQuote.message) {
 async function getServer(author, topic) {
     
     try {
-        const response = await fetch({SERVER_ENDPOINT}, {  method: 'POST',
+        const response = await fetch(`${SERVER_ENDPOINT}/search`, {  
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
         body: JSON.stringify({author, topic})});      
         const textResponse = await response.json();
         console.log(textResponse)
