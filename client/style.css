@@ -103,6 +103,18 @@ input {
     display: flex; 
 }
 
+/*===== Quote Container ===== */
+
+#searchQuoteContainer {
+    flex-direction: column;
+    text-align: center;
+}
+
+#searchQuoteContainer p {
+    margin: 1rem 0 1rem 0;
+}
+
+
 /*===== Quote, Author and Profession ===== */
 
 .quote {

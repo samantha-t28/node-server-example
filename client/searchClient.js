@@ -21,23 +21,29 @@ async function displayServer() {
     const author = document.getElementById('author');
     const profession = document.getElementById('profession');
     const topic = document.getElementById('topic');
+    const searchQuoteContainer = document.getElementById('searchQuoteContainer')
 
     button.disabled = true;
     button.innerHTML = 'Loading...';
     const serverQuote = await getServer(searchAuthor.value, searchTopic.value);
+    console.log('serverQuote:', serverQuote);
     button.innerHTML = 'Search';
     button.disabled = false;
     
     // Display error message if author is not found, otherwise display the quote and author
-    const quoteElement = document.createElement('div');
     if (serverQuote.message) {
     quote.innerText = "The author you're trying to search does not exist";
     author.innerText = '';
     topic.innerText = '';
     } else {
-        quote.innerText = serverQuote.quote;
-        author.innerText = serverQuote.author;
-        // topic.innerText = serverQuote.topics;
+        serverQuote.forEach((quoteData) => {
+            const quoteDiv = document.createElement('div');
+            quoteDiv.innerHTML = `
+            <p>${quoteData.quote}</p>
+            <p>By: ${quoteData.author} (${quoteData.profession})</p>`;
+
+            searchQuoteContainer.appendChild(quoteDiv);
+        });
     }
 }
 
