@@ -27,8 +27,6 @@ h1 {
 
 a {
     color: #6f89e7;
-    font-size: 1.2rem;
-    letter-spacing: 0.2rem;
     text-underline-offset: 6px;
 }
 
@@ -58,12 +56,13 @@ a:hover {
     width: 85%;
 }
 
-.form-container, .form-group {
+.form-container, .form-group, label {
     display: flex;
     justify-content: center;
 }
 
 label {
+    align-items: center;
     font-size: 1.1rem;
     margin-right: 1rem;
     width: 65px;
@@ -128,7 +127,6 @@ input {
     font-weight: 300;
     font-size: clamp(0.5rem, 0.8vw + 0.4rem, 1rem);
     align-items: start;
-
 }
 
 /*===== Button ===== */
