@@ -4,7 +4,7 @@ const button = document.getElementById('button');
 
 button.addEventListener('click', onClickGenerateRandomQuoteButton)
 
-async function onClickGenerateRandomQuoteButton(){
+async function onClickGenerateRandomQuoteButton() {
     console.log('button clicked')
     const quote = document.getElementById('quote');
     const author = document.getElementById('author');

@@ -16,7 +16,7 @@ export const searchQuotes = (jsonData, quotes) => {
    // Check to see if there are any quotes in the filteredQuotes array
    if(filteredQuotes.length > 0){
 
-      const selectedQuote = filteredQuotes[0];
+      const selectedQuote = filteredQuotes;
       return selectedQuote;
       // Handle no matching author and display message
       } else {
