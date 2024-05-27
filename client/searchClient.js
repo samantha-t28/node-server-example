@@ -32,15 +32,35 @@ async function displayServer() {
     
     // Display error message if author is not found, otherwise display the quote and author
     if (serverQuote.message) {
-    quote.innerText = "The author you're trying to search does not exist";
-    author.innerText = '';
-    topic.innerText = '';
-    } else {
+       if(searchAuthor.value && !searchTopic.value) {
+        quote.innerText = 'No quotes found for the specified author';
+       } else if (searchTopic.value && !searchAuthor.value) {
+        quote.innerText = 'No quotes found for the specified topic';
+       } else {
+        quote.innerText = 'No quotes found for the specified author and topic';
+       }
+    }
+     else {
         serverQuote.forEach((quoteData) => {
             const quoteDiv = document.createElement('div');
-            quoteDiv.innerHTML = `
-            <p>${quoteData.quote}</p>
-            <p>By: ${quoteData.author} (${quoteData.profession})</p>`;
+            
+            const quoteElement = document.createElement('p');
+            const authorElement = document.createElement('p');
+            const topicsElement = document.createElement('p');
+
+            quoteElement.classList.add('quote');
+            authorElement.classList.add('author');
+            topicsElement.classList.add('topic');
+
+            quoteElement.textContent = quoteData.quote;
+            authorElement.innerHTML = `By: ${quoteData.author} (${quoteData.profession})`;
+            const formattedTopics = quoteData.topics.join(', ').split(',');
+
+            topicsElement.textContent = formattedTopics;
+
+            quoteDiv.appendChild(quoteElement);
+            quoteDiv.appendChild(authorElement);
+            quoteDiv.appendChild(topicsElement);
 
             searchQuoteContainer.appendChild(quoteDiv);
         });
