@@ -250,3 +250,79 @@ catch (err) {
 }
 ```
 * If there is an error during the JSON parsing (e.g., if the client sends invalid JSON), the server catches the error and responds with a status code of 400 and an error message.
+
+# JEST Testing Framework 
+
+### Install:
+```bash
+npm install --save-dev jest
+```
+
+After installation, I anticipated setting up the test file would be straightforward. However, I encountered an issue where the import statement with assertion syntax `import quotes from './quotes.json' assert {type:'json'}` caused Jest to fail parsing in the searchQuotes.js file.
+
+### Original Code in searchQuote.js
+```javascript
+import quotes from './quotes.json' assert {type:'json'}
+const searchQuotes = (author)  => {
+
+}
+```
+
+When working with modules in Node.js, the `assert` syntax ensures the imported JSON file is treated correctly and not mistaken for a regular JavaScript module/file.
+
+## Troubleshoot
+
+I created a separate file and moved the `assert` import statement for the JSON file there.
+
+
+### getQuotes.js
+```javascript
+import quotes from './quotes.json' assert {type:'json'}
+
+export const getQuotes = () => {
+    return quotes;
+}
+```
+
+This approach simplifies the testing because the JSON file is treated as a data file and not directly imported as a module. It adheres to the principle of single responsibility, focusing each file on a specific function or purpose.
+
+# How to Resolve Import Statement Issues in Jest
+
+When you encounter issues using ES6 import statements in Jest, here are two effective methods to resolve them:
+
+## 1. Use Node's Experimental VM Modules
+
+Add the following to the scripts section of your package.json to enable experimental support for ECMAScript modules:
+
+### package.json
+```javascript
+"scripts": {
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest"
+}
+```
+
+* By default, Jest does not fully support ECMAScript modules, which can lead to issues when using `import` and `export` syntax.
+
+* This setting configures Node.js to allow Jest to support ECMAScript modules in an experimental environment.
+
+## 2. Use Babel to Transpile Node Modules
+
+First, ensure Babel is installed. Then configure jest.config.js and babel.config.cjs to allow Babel to process your JavaScript files with Jest.
+
+### jest.config.js
+```javascript
+export default {
+  testEnvironment: 'node', // default option
+};
+```
+* In this config file tells Jest to run the test in Node.js environment.
+
+### babel.config.cjs
+```javascript
+module.exports = {
+  // presets: [
+  //   '@babel/preset-env',
+  // ],
+};
+```
+* Even if the `babel.config.cjs` file doesn’t specify presets or plugins, the existence of @babel/preset-env in the dependencies means Jest might be using the defaults provided by `babel-jest`.
