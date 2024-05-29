@@ -6,7 +6,7 @@ import { log } from 'node:console';
 import { SERVER_PORT } from '../common/constants.js';
 import { searchQuotes } from './searchQuotes.js';
 import { ADDRESS } from '../common/constants.js';
-import { CLIENT_PORT } from '../common/constants.js';
+// import { CLIENT_PORT } from '../common/constants.js';
 import { readFile } from "node:fs";
 import { pathToFileURL } from "node:url";
 
@@ -23,9 +23,25 @@ function serveStaticFile(res, path, contentType, responseCode = 200) {
   });
 }
 
+// function overrideConstantsFile(res, path, contentType, responseCode = 200) {
+//   readFile(path, (err, data) => {
+//     if (err) {
+//       res.writeHead(500, { "Content-Type": "text/plain" });
+//       console.error(err);
+//       res.end("500 - Internal Error");
+//     } else {
+//       res.writeHead(responseCode, { "Content-Type": contentType });
+//       const content = `
+//       export const SERVER_ENDPOINT = "${ADDRESS}:${SERVER_PORT}";
+//       `
+//       res.end(content);
+//     }
+//   });
+// }
+
 const server = createServer((req, res) => {
   // header documentation: https://developer.mozilla.org/en-US/docs/Web/ HTTP/Headers
-  res.setHeader('Access-Control-Allow-Origin', `${ADDRESS}:${CLIENT_PORT}`);
+//   res.setHeader('Access-Control-Allow-Origin', `${ADDRESS}:${CLIENT_PORT}`);
   // List of MIME type: https://www.iana.org/assignments/media-types/media-types.xhtml#application
   // res.writeHead(200, { 'Content-Type': 'application/json' });
   // curious fact: we can add any kind of information on header
@@ -73,7 +89,12 @@ const server = createServer((req, res) => {
     } else if (req.method === 'GET' && req.url === '/client.js') {
       serveStaticFile(res, pathToFileURL("./client/client.js"), "application/javascript");
     } else if (req.method === 'GET' && req.url === '/constants.js') {
-      serveStaticFile(res, pathToFileURL("./client/constants.js"), "application/javascript");
+      // overrideConstantsFile(res, pathToFileURL("./client/constants.js"), "application/javascript");
+      res.writeHead(200, { "Content-Type": 'application/javascript' });
+      const content = `
+      export const SERVER_ENDPOINT = "${ADDRESS}:${SERVER_PORT}";
+      `
+      res.end(content);
     } else if (req.method === 'GET' && req.url === '/style.css') {
       serveStaticFile(res, pathToFileURL("./client/style.css"), "text/css");
     } else if (req.method === 'GET' && req.url === '/common/constants.js') {

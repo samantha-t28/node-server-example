@@ -23,6 +23,9 @@ async function displayServer() {
     const topic = document.getElementById('topic');
     const searchQuoteContainer = document.getElementById('searchQuoteContainer')
 
+    // Resetting the searchQuoteContainer
+    searchQuoteContainer.innerHTML = '';
+
     button.disabled = true;
     button.innerHTML = 'Loading...';
     const serverQuote = await getServer(searchAuthor.value, searchTopic.value);
