@@ -3,7 +3,7 @@ function getAddress() {
   // check if we are node.js, on node.js there is a global process variable:
   if (typeof process !== 'undefined') {
     if (process.env.ADDRESS) {
-      ADDRESS = process.env.ADDRESS
+      ADDRESS = process.env.ADDRESS;
     } else {
       ADDRESS = 'http://localhost';
     }
@@ -15,8 +15,8 @@ function getAddress() {
   return ADDRESS;
 }
 
-export const ADDRESS = getAddress()
+export const ADDRESS = getAddress();
 // export const ADDRESS = typeof process !== 'undefined' && process.env.ADDRESS ? process.env.ADDRESS : 'http://localhost';
 export const SERVER_PORT = typeof process !== 'undefined' && process.env.PORT ? process.env.PORT : 3000;
 // export const CLIENT_PORT = 5507;
-
+export const SERVER_ENDPOINT = `${ADDRESS}:${SERVER_PORT}`;
