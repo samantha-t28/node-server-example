@@ -89,9 +89,9 @@ const server = createServer((req, res) => {
   ) {
     // console.log("Relative Path", "./client/index.html");
     // console.log("Absolute Path", pathToFileURL("./client/index.html"));
-    serveStaticFile(res, pathToFileURL('./client/index.html'), 'text/html');
+    serveStaticFile(res, pathToFileURL('./index.html'), 'text/html');
   } else if (req.method === 'GET' && req.url === '/client.js') {
-    serveStaticFile(res, pathToFileURL('./client/client.js'), 'application/javascript');
+    serveStaticFile(res, pathToFileURL('./client.js'), 'application/javascript');
   } else if (req.method === 'GET' && req.url === '/constants.js') {
     // overrideConstantsFile(res, pathToFileURL("./client/constants.js"), "application/javascript");
     res.writeHead(200, { 'Content-Type': 'application/javascript' });

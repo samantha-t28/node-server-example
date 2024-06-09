@@ -20,3 +20,7 @@ export const ADDRESS = getAddress();
 export const SERVER_PORT = typeof process !== 'undefined' && process.env.PORT ? process.env.PORT : 3000;
 // export const CLIENT_PORT = 5507;
 export const SERVER_ENDPOINT = `${ADDRESS}:${SERVER_PORT}`;
+
+console.log('ADDRESS:', ADDRESS);
+console.log('SERVER_PORT:', SERVER_PORT);
+console.log('SERVER_ENDPOINT:', SERVER_ENDPOINT);
