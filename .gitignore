@@ -10,3 +10,8 @@ coverage/
 
 # Jest cache
 jest-cache/
+
+# Ignore Vercel project linking information
+# This folder contains project-specific IDs and should not be shared
+.vercel
+
