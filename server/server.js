@@ -91,7 +91,7 @@ const server = createServer((req, res) => {
     // console.log("Absolute Path", pathToFileURL("./client/index.html"));
     serveStaticFile(res, pathToFileURL('./index.html'), 'text/html');
   } else if (req.method === 'GET' && req.url === '/client.js') {
-    serveStaticFile(res, pathToFileURL('./client.js'), 'application/javascript');
+    serveStaticFile(res, pathToFileURL('./client/client.js'), 'application/javascript');
   } else if (req.method === 'GET' && req.url === '/constants.js') {
     // overrideConstantsFile(res, pathToFileURL("./client/constants.js"), "application/javascript");
     res.writeHead(200, { 'Content-Type': 'application/javascript' });
@@ -104,7 +104,7 @@ const server = createServer((req, res) => {
   } else if (req.method === 'GET' && req.url === '/common/constants.js') {
     serveStaticFile(res, pathToFileURL('./common/constants.js'), 'application/javascript');
   } else if (req.method === 'GET' && req.url === '/search.html') {
-    serveStaticFile(res, pathToFileURL('./client/search.html'), 'text/html');
+    serveStaticFile(res, pathToFileURL('./search.html'), 'text/html');
   } else if (req.method === 'GET' && req.url === '/searchClient.js') {
     serveStaticFile(res, pathToFileURL('./client/searchClient.js'), 'application/javascript');
   } else {
