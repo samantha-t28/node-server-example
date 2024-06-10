@@ -3,7 +3,7 @@ import { createServer } from 'node:http';
 import { getQuotes } from './getQuotes.js';
 import { getRandomInt } from './utils.js';
 import { log } from 'node:console';
-import { SERVER_PORT, ADDRESS } from '../common/constants.js';
+import { SERVER_PORT, ADDRESS, ALLOWED_ORIGIN } from '../common/constants.js';
 import { searchQuotes } from './searchQuotes.js';
 // import { ADDRESS } from '../common/constants.js';
 // import { CLIENT_PORT } from '../common/constants.js';
@@ -45,7 +45,17 @@ const server = createServer((req, res) => {
   // List of MIME type: https://www.iana.org/assignments/media-types/media-types.xhtml#application
   // res.writeHead(200, { 'Content-Type': 'application/json' });
   // curious fact: we can add any kind of information on header
+  res.setHeader('Access-Control-Allow-Origin', ALLOWED_ORIGIN);
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   res.setHeader('SAM', 'true');
+
+  // Handle CORS preflight requests
+  if (req.method === 'OPTIONS') {
+    res.writeHead(204);
+    res.end();
+    return;
+  }
 
   // res.writeHead(200, { 'Content-Type': 'text/plain' });
   if (req.method === 'GET' && req.url === '/random') {
@@ -89,7 +99,7 @@ const server = createServer((req, res) => {
   ) {
     // console.log("Relative Path", "./client/index.html");
     // console.log("Absolute Path", pathToFileURL("./client/index.html"));
-    serveStaticFile(res, pathToFileURL('./client/index.html'), 'text/html');
+    serveStaticFile(res, pathToFileURL('./index.html'), 'text/html');
   } else if (req.method === 'GET' && req.url === '/client.js') {
     serveStaticFile(res, pathToFileURL('./client/client.js'), 'application/javascript');
   } else if (req.method === 'GET' && req.url === '/constants.js') {
@@ -104,7 +114,7 @@ const server = createServer((req, res) => {
   } else if (req.method === 'GET' && req.url === '/common/constants.js') {
     serveStaticFile(res, pathToFileURL('./common/constants.js'), 'application/javascript');
   } else if (req.method === 'GET' && req.url === '/search.html') {
-    serveStaticFile(res, pathToFileURL('./client/search.html'), 'text/html');
+    serveStaticFile(res, pathToFileURL('./search.html'), 'text/html');
   } else if (req.method === 'GET' && req.url === '/searchClient.js') {
     serveStaticFile(res, pathToFileURL('./client/searchClient.js'), 'application/javascript');
   } else {
