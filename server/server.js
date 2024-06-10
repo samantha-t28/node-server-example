@@ -3,7 +3,7 @@ import { createServer } from 'node:http';
 import { getQuotes } from './getQuotes.js';
 import { getRandomInt } from './utils.js';
 import { log } from 'node:console';
-import { SERVER_PORT, ADDRESS } from '../common/constants.js';
+import { SERVER_PORT, ADDRESS, ALLOWED_ORIGIN } from '../common/constants.js';
 import { searchQuotes } from './searchQuotes.js';
 // import { ADDRESS } from '../common/constants.js';
 // import { CLIENT_PORT } from '../common/constants.js';
@@ -45,7 +45,17 @@ const server = createServer((req, res) => {
   // List of MIME type: https://www.iana.org/assignments/media-types/media-types.xhtml#application
   // res.writeHead(200, { 'Content-Type': 'application/json' });
   // curious fact: we can add any kind of information on header
+  res.setHeader('Access-Control-Allow-Origin', ALLOWED_ORIGIN);
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   res.setHeader('SAM', 'true');
+
+  // Handle CORS preflight requests
+  if (req.method === 'OPTIONS') {
+    res.writeHead(204);
+    res.end();
+    return;
+  }
 
   // res.writeHead(200, { 'Content-Type': 'text/plain' });
   if (req.method === 'GET' && req.url === '/random') {
