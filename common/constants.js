@@ -23,4 +23,6 @@ export const SERVER_PORT = typeof process !== 'undefined' && process.env.PORT ? 
 export const SERVER_ENDPOINT = `${ADDRESS}:${SERVER_PORT}`;
 
 export const ALLOWED_ORIGIN =
-  typeof process !== 'undefined' && process.env.NODE_ENV === 'production' ? process.env.ALLOWED_ORIGIN : '*';
+  typeof process !== 'undefined' && process.env.NODE_ENV === 'production'
+    ? process.env.ALLOWED_ORIGIN
+    : 'http://localhost:3000';

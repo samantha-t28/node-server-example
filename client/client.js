@@ -24,7 +24,7 @@ async function onClickGenerateRandomQuoteButton() {
 
 async function getRandomQuoteFromServer() {
   try {
-    const response = await fetch(`${SERVER_ENDPOINT}/random`, {
+    const response = await fetch(`./api/random`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

@@ -2,7 +2,7 @@
   "name": "node-server-example",
   "version": "1.0.0",
   "description": "node server example",
-  "main": "server.js",
+  "main": "server/server.js",
   "scripts": {
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "start": "node server/server.js",

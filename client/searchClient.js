@@ -71,7 +71,7 @@ async function displayServer() {
 
 async function getServer(author, topic) {
   try {
-    const response = await fetch(`${SERVER_ENDPOINT}/search`, {
+    const response = await fetch(`./api/search`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ author, topic }),
