@@ -1,6 +1,8 @@
 import { getQuotes } from '../server/getQuotes.js';
 import { searchQuotes } from '../server/searchQuotes.js';
 
+// Separated random logic from server.js
+// This enables Vercel to automatically recognize and deploy this files as serverless function
 export default function searchQuote(req, res) {
   if (req.method === 'POST') {
     let body = '';
