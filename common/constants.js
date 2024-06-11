@@ -22,5 +22,10 @@ export const SERVER_PORT = typeof process !== 'undefined' && process.env.PORT ? 
 
 export const SERVER_ENDPOINT = `${ADDRESS}:${SERVER_PORT}`;
 
+// Determine the allowed origin for CORS based on the environment
+// If the code is running in a production environment, use the ALLOWED_ORIGIN environment variable
+// Otherwise, default to 'http://localhost:3000' for local development
 export const ALLOWED_ORIGIN =
-  typeof process !== 'undefined' && process.env.NODE_ENV === 'production' ? process.env.ALLOWED_ORIGIN : '*';
+  typeof process !== 'undefined' && process.env.NODE_ENV === 'production'
+    ? process.env.ALLOWED_ORIGIN
+    : 'http://localhost:3000';
