@@ -1,3 +1,4 @@
+/*===== Global ===== */
 * {
   margin: 0;
   padding: 0;
@@ -15,6 +16,8 @@ body {
   line-height: 1.2;
   font-family: 'Montserrat', sans-serif;
 }
+
+/*===== Typography ===== */
 
 h1 {
   font-family: 'Roboto Mono', monospace;
@@ -35,6 +38,8 @@ p b {
   font-weight: 700; /* Ensure the bold text is extra bold */
 }
 
+/*===== Button ===== */
+
 .btn {
   padding: 0.75rem;
   width: 12rem;
@@ -52,6 +57,8 @@ p b {
 .btn:hover {
   background-color: #6f89e7;
 }
+
+/*===== Containers ===== */
 
 .container {
   display: flex;
@@ -76,16 +83,6 @@ p b {
   animation: move 20s linear infinite;
 }
 
-.error {
-  width: 10vw;
-  max-width: 100px;
-  height: auto;
-  position: absolute;
-  top: 30%;
-  left: 40%;
-  animation: float 5s ease-in-out infinite;
-}
-
 .text-container {
   display: flex;
   flex-direction: column;
@@ -95,14 +92,30 @@ p b {
   padding: 0 1rem;
 }
 
-.error-message {
-  margin-bottom: 1rem;
-}
-
 .button-container {
   display: flex;
   justify-content: center;
 }
+
+/*===== Message ===== */
+
+.error-message {
+  margin-bottom: 1rem;
+}
+
+/*===== Animation Image ===== */
+
+.error-image {
+  width: 10vw;
+  max-width: 100px;
+  height: auto;
+  position: absolute;
+  top: 30%;
+  left: 40%;
+  animation: float 5s ease-in-out infinite;
+}
+
+/*===== Animation ===== */
 
 @keyframes move {
   from {
@@ -125,13 +138,16 @@ p b {
   }
 }
 
-@media (min-width: 1000px) {
-  .image-container {
-    width: 400px; /* 40% of 1000px */
-  }
-  .flying {
-    width: 100px; /* Fixed size */
-  }
+/*===== Media Query ===== */
+
+.error-image {
+  width: 10vw;
+  max-width: 100px;
+  height: auto;
+  position: absolute;
+  top: 30%;
+  left: 40%;
+  animation: float 5s ease-in-out infinite;
 }
 
 @media (min-width: 768px) {
@@ -144,5 +160,13 @@ p b {
   .text-container,
   .image-container {
     flex-basis: 50%;
+  }
+}
+@media (min-width: 1000px) {
+  .image-container {
+    width: 400px; /* 40% of 1000px */
+  }
+  .flying {
+    width: 100px; /* Fixed size */
   }
 }
