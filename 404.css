@@ -1,0 +1,172 @@
+/*===== Global ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100vw;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #e2e2e2;
+  line-height: 1.2;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/*===== Typography ===== */
+
+h1 {
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 700;
+  font-size: clamp(2rem, 4vw + 2.5rem, 6rem);
+  letter-spacing: 0.75rem;
+}
+
+p {
+  margin: 2rem 0;
+  font-weight: 300;
+  font-size: clamp(1.2rem, 2vw + 1rem, 1.8rem);
+  max-width: 600px;
+  text-align: center;
+}
+
+p b {
+  font-weight: 700; /* Ensure the bold text is extra bold */
+}
+
+/*===== Button ===== */
+
+.btn {
+  padding: 0.75rem;
+  width: 12rem;
+  height: auto;
+  text-decoration: none;
+  text-align: center;
+  font-size: 1.125rem;
+  background-color: #60bcee;
+  color: #0b0b0b;
+  border-radius: 15px;
+  transition: all 0.2s ease-out;
+  letter-spacing: 1.2px;
+}
+
+.btn:hover {
+  background-color: #6f89e7;
+}
+
+/*===== Containers ===== */
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.image-container {
+  margin: 1rem 0;
+  width: 48vw;
+  min-width: 200px;
+  max-width: 400px;
+  aspect-ratio: 1 / 1; /* maintaining a circular shape regardless of viewport size.*/
+  position: relative;
+  border: black solid 15px;
+  background: url(/client/404/background.jpeg) no-repeat center center;
+  background-size: cover;
+  overflow: hidden;
+  border-radius: 50%;
+  animation: move 20s linear infinite;
+}
+
+.text-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 2rem;
+  padding: 0 1rem;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
+/*===== Message ===== */
+
+.error-message {
+  margin-bottom: 1rem;
+}
+
+/*===== Animation Image ===== */
+
+.error-image {
+  width: 10vw;
+  max-width: 100px;
+  height: auto;
+  position: absolute;
+  top: 30%;
+  left: 40%;
+  animation: float 5s ease-in-out infinite;
+}
+
+/*===== Animation ===== */
+
+@keyframes move {
+  from {
+    background-position: 0% 100%;
+  }
+  to {
+    background-position: 100% 0%;
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/*===== Media Query ===== */
+
+.error-image {
+  width: 10vw;
+  max-width: 100px;
+  height: auto;
+  position: absolute;
+  top: 30%;
+  left: 40%;
+  animation: float 5s ease-in-out infinite;
+}
+
+@media (min-width: 768px) {
+  .container {
+    flex-direction: row-reverse;
+  }
+  .image-container {
+    margin: 0 2rem;
+  }
+  .text-container,
+  .image-container {
+    flex-basis: 50%;
+  }
+}
+@media (min-width: 1000px) {
+  .image-container {
+    width: 400px; /* 40% of 1000px */
+  }
+  .flying {
+    width: 100px; /* Fixed size */
+  }
+}

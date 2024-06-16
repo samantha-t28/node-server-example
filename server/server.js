@@ -56,9 +56,16 @@ const server = createServer((req, res) => {
   } else if (req.method === 'POST' && req.url === '/api/search') {
     // Handle the search quotes endpoint locally
     searchQuotes(req, res);
+  } else if (req.method === 'GET' && req.url === '/404.css') {
+    serveStaticFile(res, pathToFileURL('./404.css'), 'text/css');
+    console.log('i am here');
+  } else if (req.method === 'GET' && req.url === '/client/404/404-error.png') {
+    serveStaticFile(res, pathToFileURL('./client/404/404-error.png'), 'image/png');
+  } else if (req.method === 'GET' && req.url === '/client/404/background.jpeg') {
+    serveStaticFile(res, pathToFileURL('./client/404/background.jpeg'), 'image/jpeg');
   } else {
-    res.writeHead(404, { 'Content-Type': 'text/plain' });
-    res.end('Not Found');
+    serveStaticFile(res, pathToFileURL('./404.html'), 'text/html', 404);
+    console.log('HELLO');
   }
 });
 
