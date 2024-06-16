@@ -179,7 +179,7 @@ button:active {
 }
 
 .black-text-color {
-  color: #000;
+  color: #000; /* Added this class to (generate random quote button) to ensure text remains black on mobile view where it otherwise turns purple */
 }
 
 /*===== Media Query ===== */
