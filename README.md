@@ -1,5 +1,10 @@
 # Node Server Example
 
+This project is hosted on [Vercel](https://vercel.com/).
+
+🚀 : [View Project](https://node-server-example.vercel.app/)
+
+
 Documentation:
 
 - https://nodejs.org/en/learn/getting-started/introduction-to-nodejs
